@@ -39,7 +39,7 @@ const UserProfile = ({
     try {
       const response = await axios.post(
         (process.env.REACT_APP_LOCAL_API_URL ||
-          "https://ken-yokohama-mern-bug-tracker.onrender.com/") + "banUser",
+          "https://bug-tracker-dkyu.onrender.com/") + "banUser",
         {
           ip: ipAddress,
         },

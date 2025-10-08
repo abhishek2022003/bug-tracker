@@ -17,7 +17,7 @@ interface RequestFunction {
 
 const BASE_URL =
   process.env.REACT_APP_LOCAL_API_URL ||
-  "https://ken-yokohama-mern-bug-tracker.onrender.com/";
+  "https://bug-tracker-dkyu.onrender.com/";
 
 export const request: RequestFunction = async (url: string, options = {}) => {
   const method = options.method?.toLowerCase() || "get";

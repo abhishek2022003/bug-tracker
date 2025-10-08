@@ -1,4 +1,6 @@
+// src/utils/api.ts
 import axios from "axios";
+import API_BASE_URL from "../config/api.config";
 
 export const getCookie = (name: string) => {
   var nameEQ = name + "=";
@@ -15,10 +17,6 @@ interface RequestFunction {
   (url: string, options?: { method?: string; body?: object }): Promise<any>;
 }
 
-const BASE_URL =
-  process.env.REACT_APP_LOCAL_API_URL ||
-  "https://bug-tracker-dkyu.onrender.com/";
-
 export const request: RequestFunction = async (url: string, options = {}) => {
   const method = options.method?.toLowerCase() || "get";
   const body = options.body || null;
@@ -30,10 +28,11 @@ export const request: RequestFunction = async (url: string, options = {}) => {
   };
 
   try {
+    const fullUrl = API_BASE_URL + url;
     const response =
       method === "get"
-        ? await axios.get(BASE_URL + url, { headers })
-        : await axios.post(BASE_URL + url, body, { headers });
+        ? await axios.get(fullUrl, { headers })
+        : await axios.post(fullUrl, body, { headers });
     return response.data;
   } catch (err: any) {
     if (err.response?.data) throw err.response.data;
@@ -57,11 +56,7 @@ const deleteAllCookies = () => {
     const cookie = cookies[i];
     const eqPos = cookie.indexOf("=");
     const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    // Clear Cookies for path /Bug-Tracking-System
-    document.cookie =
-      name +
-      "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/Bug-Tracking-System";
-    // Clear Cookies for path /
+    // Clear Cookies for root path
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   }
 };
@@ -83,7 +78,6 @@ export const logout = () => {
 export const formatDate = (rawDate: Date) => {
   const date = new Date(rawDate);
   const year = date.getFullYear();
-  // const month = String(date.getMonth() + 1).padStart(2, "0");
   const month = date.toLocaleDateString(undefined, { month: "short" });
   const day = String(date.getDate()).padStart(2, "0");
   return `${month} ${day} ${year}`;
@@ -98,14 +92,12 @@ export const countTicketsPerProject = (tickets: any) => {
   for (let i = 0; i < tickets.length; i++) {
     const project = tickets[i].project;
 
-    // Total Ticket Count
     if (ticketCount[project]) {
       ticketCount[project]++;
     } else {
       ticketCount[project] = 1;
     }
 
-    // New Ticket Count
     if (tickets[i].status === "new") {
       if (newTicketCount[project]) {
         newTicketCount[project]++;
@@ -114,7 +106,6 @@ export const countTicketsPerProject = (tickets: any) => {
       }
     }
 
-    // In Progress Count
     if (tickets[i].status === "in progress") {
       if (inProgressCount[project]) {
         inProgressCount[project]++;
@@ -123,7 +114,6 @@ export const countTicketsPerProject = (tickets: any) => {
       }
     }
 
-    // Resolved Count
     if (tickets[i].status === "resolved") {
       if (resolvedCount[project]) {
         resolvedCount[project]++;
@@ -159,7 +149,6 @@ interface OutputObject {
 export const formatTicketDistribution = (input: any): OutputObject[] => {
   const result: OutputObject[] = [];
 
-  // Group objects by project and type
   const groupedData: { [type: string]: { [project: string]: number } } = {};
 
   for (const obj of input) {
@@ -174,14 +163,12 @@ export const formatTicketDistribution = (input: any): OutputObject[] => {
     groupedData[obj.type][obj.project]++;
   }
 
-  // Get unique projects
   const projects = input
     .map((obj: any) => obj.project)
     .filter(
       (value: any, index: number, self: any) => self.indexOf(value) === index
     );
 
-  // Transform grouped data into the desired format
   for (const type in groupedData) {
     const data: { x: string; y: number }[] = [];
 
@@ -192,16 +179,6 @@ export const formatTicketDistribution = (input: any): OutputObject[] => {
 
     result.push({ id: type, data: data.reverse() });
   }
-
-  // Calculate total number of tickets per project
-  const totalData: { x: string; y: number }[] = [];
-  for (const project of projects) {
-    const totalCount = input.filter(
-      (obj: any) => obj.project === project
-    ).length;
-    totalData.push({ x: project, y: totalCount });
-  }
-  // result.unshift({ id: "Total Tickets", data: totalData }); //Add to beginning
 
   return result.reverse();
 };

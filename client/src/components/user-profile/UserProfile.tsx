@@ -1,3 +1,4 @@
+// src/components/UserProfile.tsx
 import axios from "axios";
 import './UserProfile.css';
 import React, { useState } from "react";
@@ -10,6 +11,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Button } from "@mui/material";
+import { getApiEndpoint } from "../../config/api.config";
 
 interface props {
   id: string;
@@ -38,8 +40,7 @@ const UserProfile = ({
     setIsBanning(true);
     try {
       const response = await axios.post(
-        (process.env.REACT_APP_LOCAL_API_URL ||
-          "https://bug-tracker-dkyu.onrender.com/") + "banUser",
+        getApiEndpoint("banUser"),
         {
           ip: ipAddress,
         },

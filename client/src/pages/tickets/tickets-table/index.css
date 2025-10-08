@@ -1,0 +1,141 @@
+.ticket-table-container {
+  margin: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 450px;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ticket-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ticket-table thead th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ticket-table tbody tr {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ticket-table tbody tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(102, 126, 234, 0.05) 0%,
+    rgba(118, 75, 162, 0.05) 100%
+  );
+  transform: translateX(4px);
+}
+
+.ticket-table tbody td {
+  padding: 1rem;
+  color: #2d3748;
+}
+
+.ticket-title {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.ticket-description {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #718096;
+}
+
+.status-badge {
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+.ticket-date {
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+.ticket-author {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 2px solid #f7fafc;
+  background: #fafafa;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    max-height: 500px;
+  }
+
+  .ticket-table thead th {
+    font-size: 0.75rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .ticket-table tbody td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .ticket-description {
+    max-width: 150px;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-section {
+    width: 100%;
+  }
+}

@@ -1,0 +1,58 @@
+.ticket-distribution-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  background: linear-gradient(145deg, #1e1b4b 0%, #312e81 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ticket-distribution-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #ec4899, #14b8a6);
+}
+
+.ticket-distribution-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 70px rgba(99, 102, 241, 0.4);
+}
+
+.card-title {
+  color: #f8fafc;
+  margin: 0 0 2rem 0;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chart-wrapper {
+  height: 40vh;
+  max-width: calc(100vw - 2rem);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 700px) {
+  .chart-wrapper {
+    max-width: calc(100vw - 30rem);
+  }
+}

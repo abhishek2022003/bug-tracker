@@ -35,10 +35,10 @@ const Login = () => {
             });
 
             setCookie("Email", response.email, {
-                path: "/Bug-Tracking-System",
+                path: "/", 
             });
             setCookie("AuthToken", response.token, {
-                path: "/Bug-Tracking-System",
+                path: "/", 
             });
 
             window.location.reload();
@@ -46,7 +46,7 @@ const Login = () => {
             if (err?.response?.data) {
                 setRegisterError(err.response.data);
             } else {
-                setRegisterEmail(err.message);
+                setRegisterError(err.message);
             }
         }
         setIsButtonLoading(false);
@@ -61,10 +61,10 @@ const Login = () => {
             });
 
             setCookie("Email", response.email, {
-                path: "/Bug-Tracking-System",
+                path: "/", 
             });
             setCookie("AuthToken", response.token, {
-                path: "/Bug-Tracking-System",
+                path: "/",  
             });
 
             window.location.reload();

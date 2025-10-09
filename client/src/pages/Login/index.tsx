@@ -4,8 +4,10 @@ import { Link, TextField, FormHelperText } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { login, register } from "./service";
 import { LoadingButton } from "@mui/lab";
+import { useNavigate } from "react-router-dom";  // ADD THIS
 
 const Login = () => {
+    const navigate = useNavigate();  // ADD THIS
     const [toggleLogin, setToggleLogin] = useState<Boolean>(true);
 
     const handleToggleLogin = () => {
@@ -22,13 +24,11 @@ const Login = () => {
     const [registerPassword, setRegisterPassword] = useState<string>("");
     const [registerError, setRegisterError] = useState<string>("");
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [cookies, setCookie, removeCookie] = useCookies<any>(["user"]);
 
     const handleRegister = async () => {
         setIsButtonLoading(true);
         try {
-            // Register User
             const response = await register({
                 email: registerEmail,
                 password: registerPassword,
@@ -41,7 +41,8 @@ const Login = () => {
                 path: "/", 
             });
 
-            window.location.reload();
+            // CHANGE THIS LINE
+            navigate("/");  // or navigate("/dashboard") - whatever your main route is
         } catch (err: any) {
             if (err?.response?.data) {
                 setRegisterError(err.response.data);
@@ -67,7 +68,8 @@ const Login = () => {
                 path: "/",  
             });
 
-            window.location.reload();
+            // CHANGE THIS LINE
+            navigate("/");  // or navigate("/dashboard") - whatever your main route is
         } catch (err: any) {
             if (err?.response?.data) {
                 setLoginError(err.response.data);

@@ -33,26 +33,26 @@ const Login = () => {
                 email: registerEmail,
                 password: registerPassword,
             });
-
+    
             setCookie("Email", response.email, {
                 path: "/", 
             });
             setCookie("AuthToken", response.token, {
                 path: "/", 
             });
-
-            // CHANGE THIS LINE
-            navigate("/");  // or navigate("/dashboard") - whatever your main route is
+    
+            // Force a full page navigation instead of React Router navigation
+            window.location.href = "/";
         } catch (err: any) {
             if (err?.response?.data) {
                 setRegisterError(err.response.data);
             } else {
                 setRegisterError(err.message);
             }
+            setIsButtonLoading(false);
         }
-        setIsButtonLoading(false);
     };
-
+    
     const handleLogin = async () => {
         setIsButtonLoading(true);
         try {
@@ -60,24 +60,24 @@ const Login = () => {
                 email: loginEmail,
                 password: loginPassword,
             });
-
+    
             setCookie("Email", response.email, {
                 path: "/", 
             });
             setCookie("AuthToken", response.token, {
                 path: "/",  
             });
-
-            // CHANGE THIS LINE
-            navigate("/");  // or navigate("/dashboard") - whatever your main route is
+    
+            // Force a full page navigation instead of React Router navigation
+            window.location.href = "/";
         } catch (err: any) {
             if (err?.response?.data) {
                 setLoginError(err.response.data);
             } else {
                 setLoginError(err.message);
             }
+            setIsButtonLoading(false);
         }
-        setIsButtonLoading(false);
     };
 
     return (
